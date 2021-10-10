@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " BC",
+    "BAG",
+    "AAA"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "A": {
+      "item": "minecraft:copper_ingot"
+    },
+    "C": {
+      "item": "minecraft:clock"
+    },
+    "B": {
+      "item": "minecraft:tinted_glass"
+    }
+  },
+  "result": {
+    "item": "sextant:sextant"
+  }
+}

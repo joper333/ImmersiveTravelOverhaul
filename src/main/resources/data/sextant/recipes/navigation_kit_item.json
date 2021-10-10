@@ -1,0 +1,15 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "sextant:sextant"
+    },
+    {
+      "item": "sextant:barometer"
+    }
+  ],
+  "result": {
+    "item": "sextant:navigation_kit",
+    "count": 1
+  }
+}

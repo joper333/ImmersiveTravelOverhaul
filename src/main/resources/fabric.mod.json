@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "sextant",
+  "version": "${version}",
+
+  "name": "Immersive Travel Overhaul",
+  "description": "this mod overhauls the coordinate system to make a more immersive form of travel",
+  "authors": [
+    "joper333"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": ""
+  },
+
+  "license": "public domain",
+  "icon": "assets/sextant/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.joper333.sextant.Sextant"
+    ]
+  },
+  "mixins": [
+    "sextant.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.6",
+    "fabric": "*",
+    "minecraft": "1.17.1"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "item.sextant.sextant": "Sextant",
+  "item.sextant.barometer": "Barometer",
+  "item.sextant.navigation_kit": "Navigational Kit",
+  "item.sextant.sextant.tooltip": "Used to know your position",
+  "item.sextant.barometer.tooltip": "Used to know your height",
+  "item.sextant.navigation_kit.tooltip": "Used to know your height and position"
+
+}
