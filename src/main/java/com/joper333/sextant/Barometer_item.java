@@ -34,19 +34,19 @@ public class Barometer_item extends Item{
           {
               if (seaLevel == -1)
               {
-                  playerEntity.sendMessage(new TranslatableText("Im " + Math.abs(seaLevel) +" meter below sea level"), true);
+                  playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meter below sea level"), true);
 
-              }else {playerEntity.sendMessage(new TranslatableText("Im " + Math.abs(seaLevel) +" meters below sea level"), true); }
+              }else {playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meters below sea level"), true); }
 
           }else if (seaLevel > 0)
           {
               if (seaLevel == 1)
               {
-                  playerEntity.sendMessage(new TranslatableText("Im " + Math.abs(seaLevel) +" meter above sea level"), true);
+                  playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meter above sea level"), true);
 
-              }else{playerEntity.sendMessage(new TranslatableText("Im " + Math.abs(seaLevel) +" meters above sea level"), true); }
+              }else{playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meters above sea level"), true); }
 
-          }else{playerEntity.sendMessage(new TranslatableText("Im at sea level"), true);}
+          }else{playerEntity.sendMessage(new TranslatableText("I'm at sea level"), true);}
 
             //playerEntity.sendMessage(new TranslatableText(String.valueOf(seaLevel)), true);
         }
