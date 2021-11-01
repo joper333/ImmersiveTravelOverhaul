@@ -3,9 +3,9 @@
   "minVersion": "0.8",
   "package": "com.joper333.sextant.mixins",
   "compatibilityLevel": "JAVA_8",
-  "mixins": ["Coordinates"
+  "mixins": ["Coordinates","Spyglass"
   ],
-  "client": ["Coordinates"
+  "client": ["Coordinates","Spyglass"
   ],
   "injectors": {
     "defaultRequire": 1

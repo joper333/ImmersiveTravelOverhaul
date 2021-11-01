@@ -46,9 +46,6 @@ import java.util.stream.Stream;
 @Mixin (DebugHud.class)
 public abstract class Coordinates extends DrawableHelper {
 
-
-
-
     //variables
     @Shadow
     @Final private MinecraftClient client;
