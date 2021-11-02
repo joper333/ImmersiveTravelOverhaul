@@ -1,6 +1,5 @@
 package com.joper333.sextant;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,7 +12,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.text.TranslatableText;
@@ -25,9 +23,7 @@ import java.util.List;
 public class Sextant_item extends Item{
 
 
-    private float radians;
-    private float pitch;
-    private float yaw;
+    private float skyAngleRadians;
 
     public Sextant_item(Settings settings) {
         super(settings);
@@ -47,39 +43,52 @@ public class Sextant_item extends Item{
         return ItemUsage.consumeHeldItem(world, playerEntity, hand);
     }
 
+    //this whole thing probably shouldn't be in the class for the item, but too late.
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
         PlayerEntity player = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
-        if (world.getRegistryKey() == World.OVERWORLD && world.isClient) {
-            double SkyAng = world.getSkyAngleRadians(radians);
-            SkyAng = Math.toDegrees(SkyAng);
-            SkyAng = Math.round(SkyAng);
-            float Pitch = playerentity.getPitch(pitch);
-            float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());
-            if(Yaw > 0) {
-                Pitch = Pitch + 90;
-                Pitch = Math.round(Pitch);
+        if (world.getRegistryKey() == World.OVERWORLD) //check if world = to overworld
+        {
+            double SkyAng = world.getSkyAngleRadians(skyAngleRadians); //get the angle of the sun in radians
+            float Pitch = playerentity.getPitch();
+            float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());//get the angle based on the f3 menu
+
+            //convert sun angle to degrees and then round
+            SkyAng = Math.round(Math.toDegrees(SkyAng));
+            Double SkyAngN = SkyAng + 180;
+            //logic for turning pitch into a full 360 rotation
+            if (Yaw > 0) {
+                Pitch = Math.round(Pitch) + 90;
             }
-            if(Yaw < 0){
-                Pitch = Pitch -90;
+            if (Yaw < 0) {
+                //pretty sure this can be 1 statement
+                Pitch = Pitch - 90;
                 Pitch = Math.abs(Pitch);
                 Pitch = Pitch + 180;
-                Pitch= Math.round(Pitch);
+                Pitch = Math.round(Pitch); //weird way of basically multiplying it by -1 and adding 90, I was sleep-deprived ok
             }
-            /*if(world.isNight()){ //fix isNight always throwing out false
-                SkyAng = 0;
-
-            }*/
             Yaw = Math.round(Yaw);
-            if(Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2) {
-                int X = playerentity.getBlockPos().getX();
-                int Z = playerentity.getBlockPos().getZ();
-                player.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
-                player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
-            }else
-            {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}
+            //checking if player is looking at sun with 2 degrees of error
+                if (Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 ||
+                        Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2) {
+                    if (world.isClient) //isClient to make sure server doesn't try to run sendMessage, which causes a crash
+                    {
+                        int X = playerentity.getBlockPos().getX();
+                        int Z = playerentity.getBlockPos().getZ();
+                        player.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
+                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
+                    }
+                } else {
+                    if (world.isClient)//isClient to make sure server doesn't try to run sendMessage, which causes a crash
+                    {
+                        player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
+                        player.sendMessage(new TranslatableText("" + Yaw + " " + Pitch + " " + SkyAng + " " + SkyAngN), false);
+                    }
+                }
+            }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
         }
-        else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}
+
     }
+
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(new TranslatableText("item.sextant.sextant.tooltip").formatted(Formatting.WHITE));
     }

@@ -51,6 +51,7 @@ public class Navigation_kit_item extends Item{
             SkyAng = Math.round(SkyAng);
             float Pitch = playerentity.getPitch(pitch);
             float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());
+            Double SkyAngN = SkyAng + 180;
             if(Yaw > 0) {
                 Pitch = Pitch + 90;
                 Pitch = Math.round(Pitch);
@@ -62,7 +63,8 @@ public class Navigation_kit_item extends Item{
                 Pitch= Math.round(Pitch);
             }
             Yaw = Math.round(Yaw);
-            if(Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2) {
+            if(Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAng - 2 && Pitch <= SkyAng + 2 ||
+                    Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2) {
                 int X = playerentity.getBlockPos().getX();
                 int Z = playerentity.getBlockPos().getZ();
                 int Y = playerentity.getBlockPos().getY();
