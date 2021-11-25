@@ -54,7 +54,7 @@ public class Sextant_item extends Item{
 
             //convert sun angle to degrees and then round
             SkyAng = Math.round(Math.toDegrees(SkyAng));
-            Double SkyAngN = SkyAng + 180;
+            double SkyAngN = SkyAng + 180; //sky angle for night time
             //logic for turning pitch into a full 360 rotation
             if (Yaw > 0) {
                 Pitch = Math.round(Pitch) + 90;
@@ -78,11 +78,7 @@ public class Sextant_item extends Item{
                         player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
                     }
                 } else {
-                    if (world.isClient)//isClient to make sure server doesn't try to run sendMessage, which causes a crash
-                    {
                         player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
-                        player.sendMessage(new TranslatableText("" + Yaw + " " + Pitch + " " + SkyAng + " " + SkyAngN), false);
-                    }
                 }
             }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
         }

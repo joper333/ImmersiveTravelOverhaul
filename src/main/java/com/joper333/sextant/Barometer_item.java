@@ -45,8 +45,8 @@ public class Barometer_item extends Item{
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
         PlayerEntity playerEntity = user.getEntityWorld().getClosestPlayer(user, 1);
         if (world.isClient) {
-            playerEntity.playSound(SoundEvents.BLOCK_LAVA_POP, 0.7F, 1.2F);
-            playerEntity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 1.0F, 0.6F);
+            playerEntity.playSound(SoundEvents.BLOCK_LAVA_POP, 0.8F, 1.2F);
+            playerEntity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 0.9F, 0.1F);
             int Y = playerEntity.getBlockPos().getY();
             int seaLevel = Y - 63;
             if(seaLevel < 0)

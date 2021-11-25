@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "com.joper333.sextant.Sextant"
+    ],
+    "client": [
+      "com.joper333.sextant.SextantC"
     ]
   },
   "mixins": [

@@ -1,6 +1,9 @@
 package com.joper333.sextant;
 
 import net.fabricmc.api.ModInitializer;
+import software.bernie.example.registry.ItemRegistry;
+import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
 
 import static com.joper333.sextant.registry.ModItems.registerItems;
@@ -12,9 +15,16 @@ public class Sextant implements ModInitializer {
     @Override
     public void onInitialize()
     {
+        GeckoLib.initialize();
         registerItems();
-
     }
+
+    /*public void onInitialize()
+    {
+        GeoItemRenderer.registerItemRenderer(ItemRegistry.JACK_IN_THE_BOX, new Katometer_Renderer());
+    }*/
+
+
 
 
 
