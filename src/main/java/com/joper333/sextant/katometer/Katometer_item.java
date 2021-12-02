@@ -1,6 +1,8 @@
 package com.joper333.sextant.katometer;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -47,7 +49,7 @@ public class Katometer_item extends Item implements IAnimatable {
     @Override
     public void registerControllers(AnimationData data)
     {
-        data.addAnimationController(new AnimationController<Katometer_item>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     @Override
@@ -66,10 +68,10 @@ public class Katometer_item extends Item implements IAnimatable {
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        PlayerEntity playerEntity = user.getEntityWorld().getClosestPlayer(user, 1);
+        final ClientPlayerEntity playerEntity = MinecraftClient.getInstance().player;
+        int X = playerEntity.getBlockPos().getX();
+        int Z = playerEntity.getBlockPos().getZ();
         if (world.isClient && world.getRegistryKey() == World.NETHER) {
-            int X = playerEntity.getBlockPos().getX();
-            int Z = playerEntity.getBlockPos().getZ();
             playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
             playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
         }

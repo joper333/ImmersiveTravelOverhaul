@@ -4,6 +4,7 @@ import java.lang.*;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -43,7 +44,7 @@ public class Barometer_item extends Item{
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        PlayerEntity playerEntity = user.getEntityWorld().getClosestPlayer(user, 1);
+        final ClientPlayerEntity playerEntity = MinecraftClient.getInstance().player;
         if (world.isClient) {
             playerEntity.playSound(SoundEvents.BLOCK_LAVA_POP, 0.8F, 1.2F);
             playerEntity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 0.9F, 0.1F);

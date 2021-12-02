@@ -10,5 +10,6 @@
   "item.sextant.navigation_kit.tooltip": "Used to know your height and position",
   "item.sextant.katometer.tooltip": "Used to know your position in the Nether",
   "item.sextant.multi_katometer.tooltip": "Used to know your height and position in the Nether",
-  "item.sextant.telosmeter.tooltip": "Used to know your position in the End"
+  "item.sextant.telosmeter.tooltip": "Used to know your position in the End",
+  "item.sextant.viator": "Viator"
 }

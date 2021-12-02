@@ -1,6 +1,8 @@
 package com.joper333.sextant;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -45,7 +47,7 @@ public class Sextant_item extends Item{
 
     //this whole thing probably shouldn't be in the class for the item, but too late.
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
-        PlayerEntity player = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
+        final ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (world.getRegistryKey() == World.OVERWORLD) //check if world = to overworld
         {
             double SkyAng = world.getSkyAngleRadians(skyAngleRadians); //get the angle of the sun in radians

@@ -1,6 +1,8 @@
 package com.joper333.sextant;
 
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -44,14 +46,14 @@ public class Navigation_kit_item extends Item{
     }
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
-        PlayerEntity player = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
+        final ClientPlayerEntity player = MinecraftClient.getInstance().player;
         if (world.getRegistryKey() == World.OVERWORLD) {
             double SkyAng = world.getSkyAngleRadians(radians);
             SkyAng = Math.toDegrees(SkyAng);
             SkyAng = Math.round(SkyAng);
             float Pitch = playerentity.getPitch(pitch);
             float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());
-            Double SkyAngN = SkyAng + 180;
+            double SkyAngN = SkyAng + 180;
             if(Yaw > 0) {
                 Pitch = Pitch + 90;
                 Pitch = Math.round(Pitch);
