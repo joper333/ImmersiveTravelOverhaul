@@ -1,6 +1,7 @@
 package com.joper333.sextant.viator;
 
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -33,9 +34,10 @@ import software.bernie.geckolib3.util.GeckoLibUtil;
 import java.util.List;
 
 public class Viator_item extends Item implements IAnimatable, ISyncable {
-    AnimationFactory factory = new AnimationFactory(this);
+    public AnimationFactory factory = new AnimationFactory(this);
     private static final String controllerName = "useController";
     public static final int ANIM = 0;
+    public static final int ANIM_STOP = 1;
 
     public Viator_item(Settings settings) {
         super(settings);
@@ -115,21 +117,31 @@ public class Viator_item extends Item implements IAnimatable, ISyncable {
         return stack;
     }
 
-    @Override
-    public void onAnimationSync(int id, int state) {
-        if (state == ANIM) {
-            // Always use GeckoLibUtil to get AnimationControllers when you don't have
-            // access to an AnimationEvent
-            @SuppressWarnings("rawtypes")
-            final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, id, controllerName);
-
-            if (controller.getAnimationState() == AnimationState.Stopped) {
-                controller.markNeedsReload();
-                controller.setAnimation(new AnimationBuilder().addAnimation("use", false));
+    public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
+        PlayerEntity playerEntity = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
+        final Hand hand = playerEntity.getActiveHand();
+        if (!world.isClient) {
+            final int id = GeckoLibUtil.guaranteeIDForStack(playerEntity.getStackInHand(hand), (ServerWorld) world);
+            GeckoLibNetwork.syncAnimation(playerEntity, this, id, ANIM_STOP);
+            for (PlayerEntity otherPlayer : PlayerLookup.tracking(playerEntity)) {
+                GeckoLibNetwork.syncAnimation(otherPlayer, this, id, ANIM_STOP);
             }
         }
     }
-
+    @SuppressWarnings("resource")
+    @Override
+    public void onAnimationSync(int id, int state) {
+        @SuppressWarnings("rawtypes")
+        final AnimationController controller = GeckoLibUtil.getControllerForID(this.factory, id, controllerName);
+        if (state == ANIM_STOP) {
+            controller.markNeedsReload();
+            controller.setAnimation(new AnimationBuilder().addAnimation("stop", false));
+        }
+        if (state == ANIM) {
+                controller.markNeedsReload();
+                controller.setAnimation(new AnimationBuilder().addAnimation("use", false));
+        }
+    }
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(new TranslatableText("item.sextant.multi_katometer.tooltip").formatted(Formatting.WHITE));
     }
