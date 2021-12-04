@@ -1,8 +1,7 @@
 package com.joper333.sextant.telosmeter;
 
-import net.minecraft.client.MinecraftClient;
+
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
