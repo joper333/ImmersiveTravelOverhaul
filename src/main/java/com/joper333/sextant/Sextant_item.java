@@ -84,7 +84,6 @@ public class Sextant_item extends Item{
                         player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z ), true);
                     }
                 } else {
-                    player.sendMessage(new TranslatableText("day"+SkyAng+ " night" + SkyAngN +" Pitch" + Pitch ), true);
                     player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
                 }
             }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
