@@ -47,16 +47,21 @@ public class Sextant_item extends Item{
 
     //this whole thing probably shouldn't be in the class for the item, but too late.
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
-        final ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        PlayerEntity player = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
         if (world.getRegistryKey() == World.OVERWORLD) //check if world = to overworld
         {
+            int X = playerentity.getBlockPos().getX();
+            int Z = playerentity.getBlockPos().getZ();
             double SkyAng = world.getSkyAngleRadians(skyAngleRadians); //get the angle of the sun in radians
             float Pitch = playerentity.getPitch();
             float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());//get the angle based on the f3 menu
 
             //convert sun angle to degrees and then round
             SkyAng = Math.round(Math.toDegrees(SkyAng));
-            double SkyAngN = SkyAng + 180; //sky angle for night time
+            double SkyAngN = (SkyAng + 180); //sky angle for night time
+            if (SkyAngN > 360){
+                SkyAngN= SkyAngN % 360;
+            }
             //logic for turning pitch into a full 360 rotation
             if (Yaw > 0) {
                 Pitch = Math.round(Pitch) + 90;
@@ -74,13 +79,13 @@ public class Sextant_item extends Item{
                         Yaw >= 88 && Yaw <= 92 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2 || Yaw >= -92 && Yaw <= -88 && Pitch >= SkyAngN - 2 && Pitch <= SkyAngN + 2) {
                     if (world.isClient) //isClient to make sure server doesn't try to run sendMessage, which causes a crash
                     {
-                        int X = playerentity.getBlockPos().getX();
-                        int Z = playerentity.getBlockPos().getZ();
+
                         player.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
-                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
+                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z ), true);
                     }
                 } else {
-                        player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
+                    player.sendMessage(new TranslatableText("day"+SkyAng+ " night" + SkyAngN +" Pitch" + Pitch ), true);
+                    player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
                 }
             }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
         }

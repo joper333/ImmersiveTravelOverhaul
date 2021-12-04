@@ -19,12 +19,6 @@ public class Sextant implements ModInitializer {
         registerItems();
     }
 
-    /*public void onInitialize()
-    {
-        GeoItemRenderer.registerItemRenderer(ItemRegistry.JACK_IN_THE_BOX, new Katometer_Renderer());
-    }*/
-
-
 
 
 

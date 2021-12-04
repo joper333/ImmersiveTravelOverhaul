@@ -46,7 +46,7 @@ public class Navigation_kit_item extends Item{
     }
 
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity playerentity, int remainingUseTicks) {
-        final ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        PlayerEntity player = playerentity.getEntityWorld().getClosestPlayer(playerentity, 1);
         if (world.getRegistryKey() == World.OVERWORLD) {
             double SkyAng = world.getSkyAngleRadians(radians);
             SkyAng = Math.toDegrees(SkyAng);
@@ -54,6 +54,9 @@ public class Navigation_kit_item extends Item{
             float Pitch = playerentity.getPitch(pitch);
             float Yaw = MathHelper.wrapDegrees(playerentity.getYaw());
             double SkyAngN = SkyAng + 180;
+            if (SkyAngN > 360){
+                SkyAngN= SkyAngN % 360;
+            }
             if(Yaw > 0) {
                 Pitch = Pitch + 90;
                 Pitch = Math.round(Pitch);

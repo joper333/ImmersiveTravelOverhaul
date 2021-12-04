@@ -44,7 +44,8 @@ public class Barometer_item extends Item{
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        final ClientPlayerEntity playerEntity = MinecraftClient.getInstance().player;
+        PlayerEntity playerEntity = user.getEntityWorld().getClosestPlayer(user, 1);
+
         if (world.isClient) {
             playerEntity.playSound(SoundEvents.BLOCK_LAVA_POP, 0.8F, 1.2F);
             playerEntity.playSound(SoundEvents.ITEM_BOTTLE_FILL, 0.9F, 0.1F);

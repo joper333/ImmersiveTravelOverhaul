@@ -68,7 +68,7 @@ public class Katometer_item extends Item implements IAnimatable {
     }
 
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        final ClientPlayerEntity playerEntity = MinecraftClient.getInstance().player;
+        PlayerEntity playerEntity = user.getEntityWorld().getClosestPlayer(user, 1);
         int X = playerEntity.getBlockPos().getX();
         int Z = playerEntity.getBlockPos().getZ();
         if (world.isClient && world.getRegistryKey() == World.NETHER) {
