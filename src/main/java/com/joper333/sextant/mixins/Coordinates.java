@@ -20,6 +20,7 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.server.integrated.IntegratedServer;
+import net.minecraft.server.world.ServerChunkManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Property;
 import net.minecraft.util.Formatting;
@@ -30,8 +31,11 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.source.BiomeSource;
+import net.minecraft.world.biome.source.util.MultiNoiseUtil;
 import net.minecraft.world.chunk.WorldChunk;
 import net.minecraft.world.chunk.light.LightingProvider;
+import net.minecraft.world.gen.chunk.ChunkGenerator;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -90,11 +94,11 @@ public abstract class Coordinates extends DrawableHelper {
         ClientConnection clientConnection = this.client.getNetworkHandler().getConnection();
         float f = clientConnection.getAveragePacketsSent();
         float g = clientConnection.getAveragePacketsReceived();
-        String string2;
+        String string;
         if (integratedServer != null) {
-            string2 = String.format("Integrated server @ %.0f ms ticks, %.0f tx, %.0f rx", integratedServer.getTickTime(), f, g);
+            string = String.format("Integrated server @ %.0f ms ticks, %.0f tx, %.0f rx", integratedServer.getTickTime(), f, g);
         } else {
-            string2 = String.format("\"%s\" server, %.0f tx, %.0f rx", this.client.player.getServerBrand(), f, g);
+            string = String.format("\"%s\" server, %.0f tx, %.0f rx", this.client.player.getServerBrand(), f, g);
         }
 
         BlockPos blockPos = this.client.getCameraEntity().getBlockPos();
@@ -105,7 +109,7 @@ public abstract class Coordinates extends DrawableHelper {
             var10003 = SharedConstants.getGameVersion().getName();
             var10000[0] = "Minecraft " + var10003 + " (" + this.client.getGameVersion() + "/" + ClientBrandRetriever.getClientModName() + ")";
             var10000[1] = this.client.fpsDebugString;
-            var10000[2] = string2;
+            var10000[2] = string;
             var10000[3] = this.client.worldRenderer.getChunksDebugString();
             var10000[4] = this.client.worldRenderer.getEntitiesDebugString();
             var10003 = this.client.particleManager.getDebugString();
@@ -117,22 +121,22 @@ public abstract class Coordinates extends DrawableHelper {
         } else {
             Entity entity = this.client.getCameraEntity();
             Direction direction = entity.getHorizontalFacing();
-            String string7;
+            String string2;
             switch(direction) {
                 case NORTH:
-                    string7 = "Towards negative Z";
+                    string2 = "Towards negative Z";
                     break;
                 case SOUTH:
-                    string7 = "Towards positive Z";
+                    string2 = "Towards positive Z";
                     break;
                 case WEST:
-                    string7 = "Towards negative X";
+                    string2 = "Towards negative X";
                     break;
                 case EAST:
-                    string7 = "Towards positive X";
+                    string2 = "Towards positive X";
                     break;
                 default:
-                    string7 = "Invalid";
+                    string2 = "Invalid";
             }
 
             ChunkPos chunkPos = new ChunkPos(blockPos);
@@ -147,23 +151,24 @@ public abstract class Coordinates extends DrawableHelper {
             var10003 = SharedConstants.getGameVersion().getName();
             var10000[0] = "Minecraft " + var10003 + " (" + this.client.getGameVersion() + "/" + ClientBrandRetriever.getClientModName() + ("release".equalsIgnoreCase(this.client.getVersionType()) ? "" : "/" + this.client.getVersionType()) + ")";
             var10000[1] = this.client.fpsDebugString;
-            var10000[2] = string2;
+            var10000[2] = string;
             var10000[3] = this.client.worldRenderer.getChunksDebugString();
             var10000[4] = this.client.worldRenderer.getEntitiesDebugString();
             var10003 = this.client.particleManager.getDebugString();
             var10000[5] = "P: " + var10003 + ". T: " + this.client.world.getRegularEntityCount();
             var10000[6] = this.client.world.asString();
             List<String> list = Lists.newArrayList(var10000);
-            String string8 = this.getServerWorldDebugString();
-            if (string8 != null) {
-                list.add(string8);
+            String string3 = this.getServerWorldDebugString();
+            if (string3 != null) {
+                list.add(string3);
             }
 
             Identifier var10001 = this.client.world.getRegistryKey().getValue();
             list.add(var10001 + " FC: " + ((LongSet)longSet).size());
             list.add("");
-            list.add(String.format(Locale.ROOT, "Facing: %s (%s) (%.1f / %.1f)", direction, string7, MathHelper.wrapDegrees(entity.getYaw()), MathHelper.wrapDegrees(entity.getPitch())));
+            list.add(String.format(Locale.ROOT, "Facing: %s (%s) (%.1f / %.1f)", direction, string2, MathHelper.wrapDegrees(entity.getYaw()), MathHelper.wrapDegrees(entity.getPitch())));
             WorldChunk worldChunk = this.getClientChunk();
+            int var23;
             if (worldChunk.isEmpty()) {
                 list.add("Waiting for chunk...");
             } else {
@@ -176,12 +181,11 @@ public abstract class Coordinates extends DrawableHelper {
                 Heightmap.Type[] var21 = Heightmap.Type.values();
                 int var22 = var21.length;
 
-                int var23;
-                Heightmap.Type type2;
+                Heightmap.Type type;
                 for(var23 = 0; var23 < var22; ++var23) {
-                    type2 = var21[var23];
-                    if (type2.shouldSendToClient()) {
-                        stringBuilder.append(" ").append((String)HEIGHT_MAP_TYPES.get(type2)).append(": ").append(worldChunk.sampleHeightmap(type2, blockPos.getX(), blockPos.getZ()));
+                    type = var21[var23];
+                    if (type.shouldSendToClient()) {
+                        stringBuilder.append(" ").append((String)HEIGHT_MAP_TYPES.get(type)).append(": ").append(worldChunk.sampleHeightmap(type, blockPos.getX(), blockPos.getZ()));
                     }
                 }
 
@@ -192,11 +196,11 @@ public abstract class Coordinates extends DrawableHelper {
                 var22 = var21.length;
 
                 for(var23 = 0; var23 < var22; ++var23) {
-                    type2 = var21[var23];
-                    if (type2.isStoredServerSide()) {
-                        stringBuilder.append(" ").append((String)HEIGHT_MAP_TYPES.get(type2)).append(": ");
+                    type = var21[var23];
+                    if (type.isStoredServerSide()) {
+                        stringBuilder.append(" ").append((String)HEIGHT_MAP_TYPES.get(type)).append(": ");
                         if (worldChunk2 != null) {
-                            stringBuilder.append(worldChunk2.sampleHeightmap(type2, blockPos.getX(), blockPos.getZ()));
+                            stringBuilder.append(worldChunk2.sampleHeightmap(type, blockPos.getX(), blockPos.getZ()));
                         } else {
                             stringBuilder.append("??");
                         }
@@ -215,29 +219,34 @@ public abstract class Coordinates extends DrawableHelper {
                         l = worldChunk2.getInhabitedTime();
                     }
 
-                    LocalDifficulty localDifficulty = new LocalDifficulty(world.getDifficulty(), world.getTimeOfDay(), l, h);
-                    list.add(String.format(Locale.ROOT, "Local Difficulty: %.2f // %.2f (Day %d)", localDifficulty.getLocalDifficulty(), localDifficulty.getClampedLocalDifficulty(), this.client.world.getTimeOfDay() / 24000L));
+                    LocalDifficulty localDifficulty  = new LocalDifficulty(world.getDifficulty(), world.getTimeOfDay(), l, h);
+                    list.add(String.format(Locale.ROOT, "Local Difficulty: %.2f // %.2f (Day %d)", localDifficulty .getLocalDifficulty(), localDifficulty .getClampedLocalDifficulty(), this.client.world.getTimeOfDay() / 24000L));
                 }
             }
 
-            ServerWorld serverWorld = this.getServerWorld();
-            if (serverWorld != null) {
-                SpawnHelper.Info info = serverWorld.getChunkManager().getSpawnInfo();
-                if (info != null) {
-                    Object2IntMap<SpawnGroup> object2IntMap = info.getGroupToCount();
-                    int m = info.getSpawningChunkCount();
-                    list.add("SC: " + m + ", " + (String)Stream.of(SpawnGroup.values()).map((spawnGroup) -> {
-                        char var1000 = Character.toUpperCase(spawnGroup.getName().charAt(0));
-                        return var1000 + ": " + object2IntMap.getInt(spawnGroup);
+            ServerWorld i = this.getServerWorld();
+            if (i != null) {
+                ServerChunkManager j = i.getChunkManager();
+                ChunkGenerator k = j.getChunkGenerator();
+                MultiNoiseUtil.MultiNoiseSampler worldChunk2 = k.getMultiNoiseSampler();
+                BiomeSource stringBuilder = k.getBiomeSource();
+                stringBuilder.addDebugInfo(list, blockPos, worldChunk2);
+                SpawnHelper.Info l = j.getSpawnInfo();
+                if (l != null) {
+                    Object2IntMap<SpawnGroup> object2IntMap = l.getGroupToCount();
+                    int m = l.getSpawningChunkCount();
+                    list.add("SC: " + m + ", " + (String)Stream.of(SpawnGroup.values()).map((group) -> {
+                        char var1000 = Character.toUpperCase(group.getName().charAt(0));
+                        return var1000 + ": " + object2IntMap.getInt(group);
                     }).collect(Collectors.joining(", ")));
                 } else {
                     list.add("SC: N/A");
                 }
             }
 
-            ShaderEffect shaderEffect = this.client.gameRenderer.getShader();
-            if (shaderEffect != null) {
-                list.add("Shader: " + shaderEffect.getName());
+            ShaderEffect j = this.client.gameRenderer.getShader();
+            if (j != null) {
+                list.add("Shader: " + j.getName());
             }
 
             String var29 = this.client.getSoundManager().getDebugString();
@@ -258,15 +267,15 @@ public abstract class Coordinates extends DrawableHelper {
         if (this.client.hasReducedDebugInfo()) {
             return list;
         } else {
-            BlockPos blockPos2;
+            BlockPos blockPos;
             UnmodifiableIterator var12;
-            Map.Entry entry2;
+            Map.Entry entry;
             Iterator var16;
             Formatting var10001;
-            Identifier identifier2;
+            Identifier identifier;
             if (this.blockHit.getType() == net.minecraft.util.hit.HitResult.Type.BLOCK) {
-                blockPos2 = ((BlockHitResult)this.blockHit).getBlockPos();
-                BlockState blockState = this.client.world.getBlockState(blockPos2);
+                blockPos = ((BlockHitResult)this.blockHit).getBlockPos();
+                BlockState blockState = this.client.world.getBlockState(blockPos);
                 list.add("");
                 var10001 = Formatting.UNDERLINE;
                 list.add(var10001 + "Targeted Block: ");
@@ -274,37 +283,37 @@ public abstract class Coordinates extends DrawableHelper {
                 var12 = blockState.getEntries().entrySet().iterator();
 
                 while(var12.hasNext()) {
-                    entry2 = (Map.Entry)var12.next();
-                    list.add(this.propertyToString(entry2));
+                    entry = (Map.Entry)var12.next();
+                    list.add(this.propertyToString(entry));
                 }
 
                 var16 = this.client.getNetworkHandler().getTagManager().getOrCreateTagGroup(Registry.BLOCK_KEY).getTagsFor(blockState.getBlock()).iterator();
 
                 while(var16.hasNext()) {
-                    identifier2 = (Identifier)var16.next();
-                    list.add("#" + identifier2);
+                    identifier = (Identifier)var16.next();
+                    list.add("#" + identifier);
                 }
             }
 
             if (this.fluidHit.getType() == net.minecraft.util.hit.HitResult.Type.BLOCK) {
-                blockPos2 = ((BlockHitResult)this.fluidHit).getBlockPos();
-                FluidState fluidState = this.client.world.getFluidState(blockPos2);
+                blockPos = ((BlockHitResult)this.fluidHit).getBlockPos();
+                FluidState blockState = this.client.world.getFluidState(blockPos);
                 list.add("");
                 var10001 = Formatting.UNDERLINE;
-                list.add(var10001 + "Targeted Fluid: " );
-                list.add(String.valueOf(Registry.FLUID.getId(fluidState.getFluid())));
-                var12 = fluidState.getEntries().entrySet().iterator();
+                list.add(var10001 + "Targeted Fluid: ");
+                list.add(String.valueOf(Registry.FLUID.getId(blockState.getFluid())));
+                var12 = blockState.getEntries().entrySet().iterator();
 
                 while(var12.hasNext()) {
-                    entry2 = (Map.Entry)var12.next();
-                    list.add(this.propertyToString(entry2));
+                    entry = (Map.Entry)var12.next();
+                    list.add(this.propertyToString(entry));
                 }
 
-                var16 = this.client.getNetworkHandler().getTagManager().getOrCreateTagGroup(Registry.FLUID_KEY).getTagsFor(fluidState.getFluid()).iterator();
+                var16 = this.client.getNetworkHandler().getTagManager().getOrCreateTagGroup(Registry.FLUID_KEY).getTagsFor(blockState.getFluid()).iterator();
 
                 while(var16.hasNext()) {
-                    identifier2 = (Identifier)var16.next();
-                    list.add("#" + identifier2);
+                    identifier = (Identifier)var16.next();
+                    list.add("#" + identifier);
                 }
             }
 
