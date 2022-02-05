@@ -21,21 +21,21 @@ public abstract class Coordinates extends DrawableHelper {
             method = "getLeftText",
             at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/util/Locale;Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;", ordinal = 0))
     private String XYZ(Locale l, String format, Object[] args) {
-        return "";
+        return null;
     }
 
     @Redirect(
             method = "getLeftText",
             at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;", ordinal = 3))
     private String Block(String format, Object[] args) {
-        return "";
+        return null;
     }
 
     @Redirect(
             method = "getLeftText",
             at = @At(value = "INVOKE", target = "Ljava/lang/String;format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;", ordinal = 4))
     private String Chunk(String format, Object[] args) {
-        return "";
+        return null;
     }
 
     //this is a horrible way to do this, and it looks ugly, but I have no idea on how to do this another way. plz help

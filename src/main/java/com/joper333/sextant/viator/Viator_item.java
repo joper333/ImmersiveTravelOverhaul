@@ -143,6 +143,6 @@ public class Viator_item extends Item implements IAnimatable, ISyncable {
         }
     }
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.multi_katometer.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(new TranslatableText("item.sextant.viator.tooltip").formatted(Formatting.WHITE));
     }
 }

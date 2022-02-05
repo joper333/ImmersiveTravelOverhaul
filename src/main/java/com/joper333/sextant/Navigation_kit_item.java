@@ -80,19 +80,19 @@ public class Navigation_kit_item extends Item{
                     if (seaLevel == -1)
                     {
 
-                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
+                        player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
 
-                    }else {player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
+                    }else {player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
 
                 }else if (seaLevel > 0)
                 {
                     if (seaLevel == 1)
                     {
-                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
+                        player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
 
-                    }else{player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
+                    }else{player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
 
-                }else{player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", at sea level"), true);}
+                }else{player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", at sea level"), true);}
 
             }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}
         }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}

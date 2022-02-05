@@ -11,5 +11,8 @@
   "item.sextant.katometer.tooltip": "Used to know your position in the Nether",
   "item.sextant.multi_katometer.tooltip": "Used to know your height and position in the Nether",
   "item.sextant.telosmeter.tooltip": "Used to know your position in the End",
-  "item.sextant.viator": "Viator"
+  "item.sextant.viator.tooltip": "Used to know your height and position in any dimension",
+  "item.sextant.viator": "Viator",
+  "position.height.singular": " meter above sea level",
+  "position.height.plural": " meters above sea level"
 }
