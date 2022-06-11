@@ -5,20 +5,20 @@ import com.joper333.sextant.multi_katometer.MultiKatometer_item;
 import net.minecraft.util.Identifier;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-public class Telosmeter_Model extends AnimatedGeoModel<Telosmeter_item>{
+public class Telosmeter_Model extends AnimatedGeoModel<Telosmeter_item> {
 
     @Override
-    public Identifier getModelLocation(Telosmeter_item object) {
+    public Identifier getModelResource(Telosmeter_item object) {
         return new Identifier(Sextant.MOD_ID, "geo/telosmeter.geo.json");
     }
 
     @Override
-    public Identifier getTextureLocation(Telosmeter_item object) {
+    public Identifier getTextureResource(Telosmeter_item object) {
         return new Identifier(Sextant.MOD_ID, "textures/items/telosmeter.png");
     }
 
     @Override
-    public Identifier getAnimationFileLocation(Telosmeter_item animatable) {
+    public Identifier getAnimationResource(Telosmeter_item animatable) {
         return new Identifier(Sextant.MOD_ID, "animations/telosmeter.animation.json");
     }
 }

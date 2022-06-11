@@ -10,13 +10,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraft.text.TranslatableText;
 import java.lang.Math;
 
 
@@ -81,7 +81,7 @@ public class Sextant_item extends Item{
                     {
 
                         player.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
-                        player.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z ), true);
+                        player.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z ), true);
                     }
                 } else {
                     player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);
@@ -92,6 +92,6 @@ public class Sextant_item extends Item{
     }
 
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.sextant.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(Text.translatable("item.sextant.sextant.tooltip").formatted(Formatting.WHITE));
     }
 }

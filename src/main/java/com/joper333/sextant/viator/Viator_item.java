@@ -13,7 +13,7 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -100,19 +100,19 @@ public class Viator_item extends Item implements IAnimatable, ISyncable {
                 if (seaLevel == -1)
                 {
 
-                    playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
+                    playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
 
-                }else {playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
+                }else {playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
 
             }else if (seaLevel > 0)
             {
                 if (seaLevel == 1)
                 {
-                    playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
+                    playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
 
-                }else{playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
+                }else{playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
 
-            }else{playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", at sea level"), true);}
+            }else{playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", at sea level"), true);}
         }
         return stack;
     }
@@ -143,6 +143,6 @@ public class Viator_item extends Item implements IAnimatable, ISyncable {
         }
     }
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.viator.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(Text.translatable("item.sextant.viator.tooltip").formatted(Formatting.WHITE));
     }
 }

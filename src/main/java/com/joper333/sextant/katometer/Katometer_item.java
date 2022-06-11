@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -73,14 +73,14 @@ public class Katometer_item extends Item implements IAnimatable {
         int Z = playerEntity.getBlockPos().getZ();
         if (world.isClient && world.getRegistryKey() == World.NETHER) {
             playerEntity.playSound(SoundEvents.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
-            playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z), true);
+            playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z), true);
         }
         return stack;
     }
 
 
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.katometer.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(Text.translatable("item.sextant.katometer.tooltip").formatted(Formatting.WHITE));
     }
 
 }

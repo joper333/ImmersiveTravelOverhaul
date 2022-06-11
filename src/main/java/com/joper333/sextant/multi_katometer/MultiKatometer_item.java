@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -78,19 +78,19 @@ public class MultiKatometer_item extends Item implements IAnimatable {
                 if (seaLevel == -1)
                 {
 
-                    playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
+                    playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
 
-                }else {playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
+                }else {playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
 
             }else if (seaLevel > 0)
             {
                 if (seaLevel == 1)
                 {
-                    playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
+                    playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
 
-                }else{playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
+                }else{playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
 
-            }else{playerEntity.sendMessage(new TranslatableText("My position is X:" + X + " Z:" + Z +", at sea level"), true);}
+            }else{playerEntity.sendMessage(Text.translatable("My position is X:" + X + " Z:" + Z +", at sea level"), true);}
         }else {
             if (world.isClient) {
 
@@ -99,19 +99,19 @@ public class MultiKatometer_item extends Item implements IAnimatable {
                 {
                     if (seaLevel == -1)
                     {
-                        playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meter below sea level"), true);
+                        playerEntity.sendMessage(Text.translatable("I'm " + Math.abs(seaLevel) +" meter below sea level"), true);
 
-                    }else {playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meters below sea level"), true); }
+                    }else {playerEntity.sendMessage(Text.translatable("I'm " + Math.abs(seaLevel) +" meters below sea level"), true); }
 
                 }else if (seaLevel > 0)
                 {
                     if (seaLevel == 1)
                     {
-                        playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meter above sea level"), true);
+                        playerEntity.sendMessage(Text.translatable("I'm " + Math.abs(seaLevel) +" meter above sea level"), true);
 
-                    }else{playerEntity.sendMessage(new TranslatableText("I'm " + Math.abs(seaLevel) +" meters above sea level"), true); }
+                    }else{playerEntity.sendMessage(Text.translatable("I'm " + Math.abs(seaLevel) +" meters above sea level"), true); }
 
-                }else{playerEntity.sendMessage(new TranslatableText("I'm at sea level"), true);}
+                }else{playerEntity.sendMessage(Text.translatable("I'm at sea level"), true);}
             }
 
         }
@@ -119,6 +119,6 @@ public class MultiKatometer_item extends Item implements IAnimatable {
     }
 
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.multi_katometer.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(Text.translatable("item.sextant.multi_katometer.tooltip").formatted(Formatting.WHITE));
     }
 }

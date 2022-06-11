@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsage;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
@@ -80,25 +80,25 @@ public class Navigation_kit_item extends Item{
                     if (seaLevel == -1)
                     {
 
-                        player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
+                        player.sendMessage(Text.translatable("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter below sea level"), true);
 
-                    }else {player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
+                    }else {player.sendMessage(Text.translatable("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters below sea level"), true); }
 
                 }else if (seaLevel > 0)
                 {
                     if (seaLevel == 1)
                     {
-                        player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
+                        player.sendMessage(Text.translatable("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meter above sea level"), true);
 
-                    }else{player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
+                    }else{player.sendMessage(Text.translatable("My position is" + " X:" + X + " Z:" + Z +", "+ Math.abs(seaLevel) +" meters above sea level"), true); }
 
-                }else{player.sendMessage(new TranslatableText("My position is" + " X:" + X + " Z:" + Z +", at sea level"), true);}
+                }else{player.sendMessage(Text.translatable("My position is" + " X:" + X + " Z:" + Z +", at sea level"), true);}
 
             }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}
         }else {player.playSound(SoundEvents.ITEM_SPYGLASS_STOP_USING, 1.0F, 1.0F);}
     }
 
     public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
-        tooltip.add(new TranslatableText("item.sextant.navigation_kit.tooltip").formatted(Formatting.WHITE));
+        tooltip.add(Text.translatable("item.sextant.navigation_kit.tooltip").formatted(Formatting.WHITE));
     }
 }
