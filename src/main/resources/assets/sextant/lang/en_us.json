@@ -14,5 +14,7 @@
   "item.sextant.viator.tooltip": "Used to know your height and position in any dimension",
   "item.sextant.viator": "Viator",
   "position.height.singular": " meter above sea level",
-  "position.height.plural": " meters above sea level"
+  "position.height.plural": " meters above sea level",
+  "key.category.sextant.ito":  "Immersive Travel Overhaul",
+  "key.sextant.main": "Menu allegedly"
 }

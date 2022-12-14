@@ -1,9 +1,8 @@
 package com.joper333.sextant;
 
+import com.joper333.sextant.gui.ModScreenHandlerRegister;
 import net.fabricmc.api.ModInitializer;
-import software.bernie.example.registry.ItemRegistry;
 import software.bernie.geckolib3.GeckoLib;
-import software.bernie.geckolib3.renderers.geo.GeoItemRenderer;
 
 
 import static com.joper333.sextant.registry.ModItems.registerItems;
@@ -17,6 +16,7 @@ public class Sextant implements ModInitializer {
     {
         GeckoLib.initialize();
         registerItems();
+        ModScreenHandlerRegister.registerAllScreenHandlers();
     }
 
 

@@ -1,6 +1,7 @@
 package com.joper333.sextant.registry;
 
 import com.joper333.sextant.*;
+import com.joper333.sextant.gui.TravelogueScreenHandler;
 import com.joper333.sextant.katometer.Katometer_item;
 import com.joper333.sextant.multi_katometer.MultiKatometer_item;
 import com.joper333.sextant.telosmeter.Telosmeter_item;
@@ -18,6 +19,7 @@ public class ModItems{
     public static final MultiKatometer_item MKATOMETER = new MultiKatometer_item(new MultiKatometer_item.Settings().group(ItemGroup.TOOLS).maxCount(1));
     public static final Telosmeter_item TELOSMETER = new Telosmeter_item(new Telosmeter_item.Settings().group(ItemGroup.TOOLS).maxCount(1));
     public static final Viator_item VIATOR = new Viator_item(new Viator_item.Settings().group(ItemGroup.TOOLS).maxCount(1));
+    public static final Travelogue TRAVELOGUE = new Travelogue(new Travelogue.Settings().group(ItemGroup.TOOLS).maxCount(1));
 
     public static void registerItems() {
         Registry.register(Registry.ITEM, new Identifier(Sextant.MOD_ID, "sextant"), SEXTANT);
@@ -27,5 +29,6 @@ public class ModItems{
         Registry.register(Registry.ITEM, new Identifier(Sextant.MOD_ID, "multi_katometer"), MKATOMETER);
         Registry.register(Registry.ITEM, new Identifier(Sextant.MOD_ID, "telosmeter"), TELOSMETER);
         Registry.register(Registry.ITEM, new Identifier(Sextant.MOD_ID, "viator"), VIATOR);
+        Registry.register(Registry.ITEM, new Identifier(Sextant.MOD_ID, "travelogue"), TRAVELOGUE);
     }
 }
