@@ -16,13 +16,18 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
-
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-public class MultiKatometer_item extends Item {
+public class MultiKatometer_item extends Item implements IAnimatable {
+    AnimationFactory factory = new AnimationFactory(this);
 
     public MultiKatometer_item(Settings settings) {
         super(settings);
@@ -34,6 +39,24 @@ public class MultiKatometer_item extends Item {
 
     public UseAction getUseAction(ItemStack stack) {
         return UseAction.BLOCK;
+    }
+
+    private <P extends Item & IAnimatable> PlayState predicate(AnimationEvent<P> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("katometer", true));
+        return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData data)
+    {
+        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
+
+    }
+
+    @Override
+    public AnimationFactory getFactory()
+    {
+        return this.factory;
     }
 
 
@@ -98,5 +121,4 @@ public class MultiKatometer_item extends Item {
         public void appendTooltip(ItemStack itemStack, World world, List<Text> tooltip, TooltipContext tooltipContext) {
         tooltip.add(Text.translatable("item.sextant.multi_katometer.tooltip").formatted(Formatting.WHITE));
     }
-
 }

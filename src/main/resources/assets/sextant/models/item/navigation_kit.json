@@ -1,9 +1,9 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "sextant:items/barometer",
-		"1": "sextant:items/sextant",
-		"particle": "sextant:items/barometer"
+		"0": "sextant:item/barometer",
+		"1": "sextant:item/sextant",
+		"particle": "sextant:item/barometer"
 	},
 	"elements": [
 		{
