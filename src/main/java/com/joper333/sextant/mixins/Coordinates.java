@@ -1,25 +1,18 @@
 package com.joper333.sextant.mixins;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.DebugHud;
 
 
 import net.minecraft.util.math.BlockPos;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.List;
 import java.util.Locale;
 
 
 @Mixin (DebugHud.class)
-public abstract class Coordinates extends DrawableHelper {
+public abstract class Coordinates{
 
 
     //i think this can be done better with slices? also how fix ugly gap in the menu, idk

@@ -8,6 +8,6 @@
   "client": ["Coordinates","Spyglass"
   ],
   "injectors": {
-    "defaultRequire": 1
+    "defaultRequire": 0
   }
 }
