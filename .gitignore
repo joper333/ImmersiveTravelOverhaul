@@ -1,2 +1,12 @@
 /run/
-/run/
+/run/config/
+/run/defaultconfigs/
+/run/downloads/
+/run/logs/
+/run/mods/
+/run/resourcepacks/
+/run/saves/
+/run/options.txt
+/run/usercache.json
+/run/usernamecache.json
+/build/
