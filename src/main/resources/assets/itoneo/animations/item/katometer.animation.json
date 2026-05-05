@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"katometer": {
+			"loop": true,
+			"animation_length": 3.5833,
+			"bones": {
+				"inner": {
+					"rotation": {
+						"vector": ["math.sin(query.anim_time * 100) * 1.5", "math.sin(query.anim_time * 100) * 1.5", "math.sin(query.anim_time * 100) * 1.5"]
+					},
+					"position": {
+						"vector": [0, "math.cos(query.anim_time * 100) / 8", 0]
+					}
+				}
+			}
+		}
+	}
+}
