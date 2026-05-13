@@ -10,3 +10,5 @@
 /run/usercache.json
 /run/usernamecache.json
 /build/
+/assets/
+/.idea/
