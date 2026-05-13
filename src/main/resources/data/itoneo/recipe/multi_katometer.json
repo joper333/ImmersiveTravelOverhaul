@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    { "item": "itoneo:katometer" },
+    { "item": "itoneo:barometer" }
+  ],
+  "result": {
+    "id": "itoneo:multi_katometer",
+    "count": 1
+  }
+}

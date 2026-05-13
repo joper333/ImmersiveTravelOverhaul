@@ -24,6 +24,6 @@ C:\\Users\\joper333\\.gradle\\caches\\neoformruntime\\assets
 itoneo
 --all
 --output
-"D:\\games\\mod making\\untitled\\src\\generated\\resources"
+D:\\games\\modmaking\\ITO-Neo\\src\\generated\\resources
 --existing
-"D:\\games\\mod making\\untitled\\src\\main\\resources"
+D:\\games\\modmaking\\ITO-Neo\\src\\main\\resources

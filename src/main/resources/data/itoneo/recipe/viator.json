@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "OGO",
+    "ESE",
+    "MTM"
+  ],
+  "key": {
+    "O": { "item": "minecraft:obsidian" },
+    "G": { "item": "minecraft:glass" },
+    "T": { "item": "minecraft:enchanting_table" },
+    "E": { "item": "minecraft:ender_eye" },
+    "S": { "item": "minecraft:shulker_shell" },
+    "M": { "item": "minecraft:smooth_stone" }
+  },
+  "result": {
+    "id": "itoneo:viator",
+    "count": 1
+  }
+}

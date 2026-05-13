@@ -1,5 +1,10 @@
 {
-  "itemGroup.itoneo": "Example Mod Tab",
-  "block.itoneo.example_block": "Example Block",
-  "item.itoneo.sextant": "Sextant"
+  "itemGroup.itoneo": "Immersive Travel Overhaul",
+  "item.itoneo.sextant": "Sextant",
+  "item.itoneo.viator": "Viator",
+  "item.itoneo.telosmeter": "Telosmeterr",
+  "item.itoneo.barometer": "Barometer",
+  "item.itoneo.navigation_kit": "Navigational Kit",
+  "item.itoneo.katometer": "Katometer",
+  "item.itoneo.multi_katometer": "Multi-Katometer"
 }

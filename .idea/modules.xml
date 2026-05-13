@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/untitled.iml" filepath="$PROJECT_DIR$/.idea/modules/untitled.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/untitled.main.iml" filepath="$PROJECT_DIR$/.idea/modules/untitled.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ITO-Neo.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ITO-Neo.main.iml" />
     </modules>
   </component>
 </project>

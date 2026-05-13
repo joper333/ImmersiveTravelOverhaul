@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    { "item": "itoneo:sextant" },
+    { "item": "itoneo:barometer" }
+  ],
+  "result": {
+    "id": "itoneo:navigation_kit",
+    "count": 1
+  }
+}

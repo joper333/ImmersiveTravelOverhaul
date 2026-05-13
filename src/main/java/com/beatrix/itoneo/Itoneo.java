@@ -44,7 +44,14 @@ public class Itoneo {
 
 //     Creates a creative tab with the id "itoneo:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("ito_tab", () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.itoneo")).withTabsBefore(CreativeModeTabs.COMBAT).icon(() -> ModItems.SEXTANT.get().getDefaultInstance()).displayItems((parameters, output) -> {
-        output.accept(ModItems.SEXTANT.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+        output.accept(ModItems.SEXTANT.get());
+        output.accept(ModItems.MULTI_KATOMETER.get());
+        output.accept(ModItems.KATOMETER.get());
+        output.accept(ModItems.TELOSMETER.get());
+        output.accept(ModItems.BAROMETER.get());
+        output.accept(ModItems.NAVIGATION_KIT.get());
+        output.accept(ModItems.VIATOR.get());
+        // Add the example item to the tab. For your own tabs, this method is preferred over the event
     }).build());
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.

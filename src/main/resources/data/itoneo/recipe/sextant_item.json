@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "group": "wooden_fence_gate",
+  "key": {
+    "C": {
+      "item": "minecraft:copper_ingot"
+    },
+    "A": {
+      "item": "minecraft:amethyst_shard"
+    },
+    "T": {
+      "item": "minecraft:tinted_glass"
+    },
+    "F": {
+      "item": "minecraft:clock"
+    }
+  },
+  "pattern": [
+    " TF",
+    "TCA",
+    "CCC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "itoneo:sextant"
+  }
+}
